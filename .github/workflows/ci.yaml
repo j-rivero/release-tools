@@ -45,5 +45,5 @@ jobs:
       - name: Generate all DSL files
         if: steps.dsl_check.outputs.run_job == 'true'
         run: |
-          ls
-          java -jar jobdsl.jar jenkins-scripts/dsl/*.dsl
+          cd jenkins-scripts/dsl
+          java -jar jobdsl.jar *.dsl

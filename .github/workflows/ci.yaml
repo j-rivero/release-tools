@@ -46,4 +46,4 @@ jobs:
         if: steps.dsl_check.outputs.run_job == 'true'
         run: |
           cd jenkins-scripts/dsl
-          java -jar jobdsl.jar *.dsl
+          java -jar ../../jobdsl.jar *.dsl

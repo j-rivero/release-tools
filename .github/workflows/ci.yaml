@@ -56,9 +56,10 @@ jobs:
       - name: Geneate master DSL files
         if: steps.dsl_check.outputs.run_job == 'true'
         run: |
+          set -x
           # export files for later diff
           git clean -f -d
-          git checkout master
+          git checkout master || true
           java -jar ../../jobdsl.jar *.dsl
           mkdir /tmp/current_xml_configuration
           cp -a *.xml /tmp/current_xml_configuration/

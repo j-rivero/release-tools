@@ -64,6 +64,7 @@ jobs:
           cp -a *.xml /tmp/current_xml_configuration/
       - name: Generating diffs
         if: steps.dsl_check.outputs.run_job == 'true'
+        run: |
           diff -qr /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_files_changed.diff
           diff -ur /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_content_changed.diff
       - name: Archive files changes

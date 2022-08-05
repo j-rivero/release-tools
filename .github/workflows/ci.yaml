@@ -58,8 +58,8 @@ jobs:
         run: |
           set -x
           # export files for later diff
-          git clean -f -d
-          git checkout master || true
+          git clean -x -f -e jobdsl.jar
+          git checkout master
           java -jar ../../jobdsl.jar *.dsl
           mkdir /tmp/current_xml_configuration
           cp -a *.xml /tmp/current_xml_configuration/

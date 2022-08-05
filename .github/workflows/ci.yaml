@@ -45,5 +45,7 @@ jobs:
       - name: Generate all DSL files
         if: steps.dsl_check.outputs.run_job == 'true'
         run: |
+          # simulate token for brew_release
+          touch /var/lib/jenkins/remote_token
           cd jenkins-scripts/dsl
           java -jar ../../jobdsl.jar *.dsl

@@ -46,6 +46,7 @@ jobs:
         if: steps.dsl_check.outputs.run_job == 'true'
         run: |
           # simulate token for brew_release
-          mkdir -p /var/lib/jenkins/ && touch /var/lib/jenkins/remote_token
+          sudo mkdir -p /var/lib/jenkins/ && sudo touch /var/lib/jenkins/remote_token
+          sudo chown -R ${USER} /var/lib/jenkins
           cd jenkins-scripts/dsl
           java -jar ../../jobdsl.jar *.dsl

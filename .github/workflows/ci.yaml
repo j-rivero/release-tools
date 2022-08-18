@@ -58,12 +58,11 @@ jobs:
         run: |
           set -x
           # export files for later diff
-          git status
-          ls
           git clean -f -e jobdsl.jar
           git status
           ls
           git checkout master
+          cd jenkins-scripts/dsl
           java -jar ../../jobdsl.jar *.dsl
           mkdir /tmp/current_xml_configuration
           cp -a *.xml /tmp/current_xml_configuration/

@@ -69,8 +69,10 @@ jobs:
       - name: Generating diffs
         if: steps.dsl_check.outputs.run_job == 'true'
         run: |
-          diff -qr /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_files_changed.diff || true
-          diff -ur /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_content_changed.diff || true
+          # somehow the Jenkins views changed the portlet_ id on every run.
+          # Ignore it here
+          diff -qr -I '.*<id>dashboard_portlet_*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_files_changed.diff || true
+          diff -ur -I '.*<id>dashboard_portlet_*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_content_changed.diff || true
       - name: Archive files changes
         if: steps.dsl_check.outputs.run_job == 'true'
         uses: actions/upload-artifact@v3

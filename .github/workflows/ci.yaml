@@ -81,5 +81,5 @@ jobs:
         if: steps.dsl_check.outputs.run_job == 'true'
         uses: actions/upload-artifact@v3
         with:
-          name: xml_config_files_changed
+          name: xml_config_content_changed
           path: /tmp/xml_config_content_changed.diff

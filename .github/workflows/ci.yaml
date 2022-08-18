@@ -58,7 +58,11 @@ jobs:
         run: |
           set -x
           # export files for later diff
+          git status
+          ls
           git clean -f -e jobdsl.jar
+          git status
+          ls
           git checkout master
           java -jar ../../jobdsl.jar *.dsl
           mkdir /tmp/current_xml_configuration

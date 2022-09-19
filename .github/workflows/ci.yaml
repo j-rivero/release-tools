@@ -87,5 +87,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: ":open_file_folder: **XML Jenkins configuration files changed in this PR**\n ${{ steps.diff.outputs.files_changed } \n\n " +
-                    ":bookmark_tabs: **Content changed in the XML configuration files in this PR**\n ${{ steps.diff.outputs.content_changed }"
+                    ":bookmark_tabs: **Content changed in the XML configuration files in this PR**\n ${{ steps.diff.outputs.content_changed }}"
             })

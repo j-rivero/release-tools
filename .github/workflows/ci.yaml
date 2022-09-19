@@ -77,13 +77,14 @@ jobs:
           #content_changed=$(diff -ur -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_content_changed.diff || true)
       - name: Publish diffs
         if: steps.dsl_check.outputs.run_job == 'true'
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{secrets.USER_TOKEN}}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "XML Jenkins configuration files changed in this PR:\n ${{ steps.diff.outputs.files_changed }}"
+        env:
+          URL: ${{ github.event.issue.comments_url }}
+          GITHUB_TOKEN: ${{ secrets.USER_TOKEN }}
+        run: |
+          curl \
+            -X POST \
+            $URL \
+            -H "Content-Type: application/json" \
+            -H "Authorization: token $USER_TOKEN" \
+            --data "{ 'body': 'XML Jenkins configuration files changed in this PR:\n ${{ steps.diff.outputs.files_changed }}' }"
             })

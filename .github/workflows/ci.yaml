@@ -70,6 +70,7 @@ jobs:
         id: diff
         if: steps.dsl_check.outputs.run_job == 'true'
         run: |
+          diff -qr -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_files_changed.diff || true
           # somehow the Jenkins views changed the portlet_ id on every run.
           # Ignore it here
           echo "::set-output name=files_changed::\

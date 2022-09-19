@@ -90,7 +90,7 @@ jobs:
             --data "{ \"body\": \"XML Jenkins configuration files changed in this PR:\n ${{ steps.diff.outputs.files_changed }}\" }"
       - name: Publish diffs using github script API
         if: steps.dsl_check.outputs.run_job == 'true'
-      - uses: actions/github-script@v5
+        uses: actions/github-script@v5
         with:
           github-token: ${{secrets.USER_TOKEN}}
           script: |

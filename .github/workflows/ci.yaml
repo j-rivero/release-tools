@@ -79,7 +79,7 @@ jobs:
         if: steps.dsl_check.outputs.run_job == 'true'
         env:
           URL: ${{ github.event.pull_request.comments_url }}
-          GITHUB_TOKEN: ${{ secrets.USER_TOKEN }}
+          USER_TOKEN: ${{ secrets.USER_TOKEN }}
         run: |
           curl \
             -X POST \
@@ -87,4 +87,3 @@ jobs:
             -H "Content-Type: application/json" \
             -H "Authorization: token $USER_TOKEN" \
             --data "{ 'body': 'XML Jenkins configuration files changed in this PR:\n ${{ steps.diff.outputs.files_changed }}' }"
-            })

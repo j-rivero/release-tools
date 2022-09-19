@@ -67,21 +67,22 @@ jobs:
           mkdir /tmp/current_xml_configuration
           cp -a *.xml /tmp/current_xml_configuration/
       - name: Generating diffs
+        id: diff
         if: steps.dsl_check.outputs.run_job == 'true'
         run: |
           # somehow the Jenkins views changed the portlet_ id on every run.
           # Ignore it here
-          diff -qr -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_files_changed.diff || true
-          diff -ur -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_content_changed.diff || true
-      - name: Archive files changes
+          echo "::set-output name=files_changed::\
+            $(diff -qr -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_files_changed.diff || true)"
+          #content_changed=$(diff -ur -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration > /tmp/xml_config_content_changed.diff || true)
+      - name: Publish diffs
         if: steps.dsl_check.outputs.run_job == 'true'
-        uses: actions/upload-artifact@v3
         with:
-          name: xml_config_files_changed
-          path: /tmp/xml_config_files_changed.diff
-      - name: Archive content changes
-        if: steps.dsl_check.outputs.run_job == 'true'
-        uses: actions/upload-artifact@v3
-        with:
-          name: xml_config_content_changed
-          path: /tmp/xml_config_content_changed.diff
+          github-token: ${{secrets.USER_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "XML Jenkins configuration files changed in this PR:\n ${{ steps.diff.outputs.files_changed }}"
+            })

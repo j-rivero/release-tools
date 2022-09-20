@@ -70,12 +70,14 @@ jobs:
         id: diff
         if: steps.dsl_check.outputs.run_job == 'true'
         run: |
+          $(diff -ur -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration || true)"
+          `diff -ur -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration || true`
           # somehow the Jenkins views changed the portlet_ id on every run.
           # Ignore it here
           echo "::set-output name=files_changed::\
             $(diff -qr -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration || true)"
           echo "::set-output name=content_changed::\
-            $(diff -ur -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration || true)"
+          `diff -ur -I '.*<id>dashboard_portlet_.*</id>.*' /tmp/current_xml_configuration /tmp/pr_xml_configuration || true`"
       - name: Publish diffs in a comment
         if: steps.dsl_check.outputs.run_job == 'true'
         uses: actions/github-script@v5
@@ -86,6 +88,8 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: ":open_file_folder: **XML Jenkins configuration files changed in this PR**\n ${{ steps.diff.outputs.files_changed }} \n\n " +
-                    ":bookmark_tabs: **Content changed in the XML configuration files in this PR**\n ${{ steps.diff.outputs.content_changed }}"
+              body: ":open_file_folder: **XML Jenkins configuration files changed in this PR**\n" +
+                    "```${{ steps.diff.outputs.files_changed }}``` \n\n " +
+                    ":bookmark_tabs: **Content changed in the XML configuration files in this PR**\n" +
+                    "```${{ steps.diff.outputs.content_changed }}```"
             })

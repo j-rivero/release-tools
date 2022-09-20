@@ -1,6 +1,8 @@
 import _configs_.*
 import javaposse.jobdsl.dsl.Job
 
+// REMOVE THIS
+
 def sdformat_supported_branches = [ 'sdformat6' , 'sdformat9', 'sdformat12' ]
 def sdformat_gz11_branches = [ 'sdformat9', 'sdformat10', 'sdformat12', 'main' ]
 // nightly and prereleases
@@ -51,6 +53,8 @@ abi_distro.each { distro ->
               export DEST_BRANCH=\${DEST_BRANCH:-\$ghprbTargetBranch}
               export SRC_BRANCH=\${SRC_BRANCH:-\$ghprbSourceBranch}
               export SRC_REPO=\${SRC_REPO:-\$ghprbAuthorRepoGitUrl}
+	      
+	      REMOVE ME _ IM A TEST
 
               /bin/bash -xe ./scripts/jenkins-scripts/docker/sdformat-abichecker.bash
 	      """.stripIndent())

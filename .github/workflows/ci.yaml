@@ -90,7 +90,6 @@ jobs:
           echo "EOF_C" >> $GITHUB_ENV
       - name: Publish diffs in a comment
         if: steps.dsl_check.outputs.run_job == 'true'
-        uses: actions/github-script@v5
         with:
           github-token: ${{secrets.USER_TOKEN}}
           run: |

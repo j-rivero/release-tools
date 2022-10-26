@@ -52,6 +52,8 @@ abi_distro.each { distro ->
               export SRC_BRANCH=\${SRC_BRANCH:-\$ghprbSourceBranch}
               export SRC_REPO=\${SRC_REPO:-\$ghprbAuthorRepoGitUrl}
 
+              REMOVE ME I_AM_A_TEST
+
               /bin/bash -xe ./scripts/jenkins-scripts/docker/sdformat-abichecker.bash
 	      """.stripIndent())
       } // end of steps

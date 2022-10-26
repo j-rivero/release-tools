@@ -93,24 +93,30 @@ jobs:
         uses: actions/github-script@v5
         with:
           github-token: ${{secrets.USER_TOKEN}}
-          script: |
-            const output = `### This is an automatic response from the CI system for Jenkins DSL generation.
-              Below is the list of Jenkins XML configuration files changed by this PR (from changes to DSL) and the content changed in the configuration files:
-              #### :open_file_folder: XML Jenkins configuration files changed in this PR
-              <details>
+          run: |
+            echo "::notice ::Missing semicolon"
+            OUTPUT=$(cat << EOF
+            ### This is an automatic response from the CI system for Jenkins DSL generation.
 
-              ${ process.env.FILES_CHANGED }
-              </details>
+            Below is the list of jenkins xml configuration files changed by this pr (from changes to dsl) and the content changed in the configuration files:
+          
+            #### :open_file_folder: xml jenkins configuration files changed in this pr
+            <details>
 
-              #### :bookmark_tabs: Content changed in the XML configuration files in this PR
-              <details>
+            ${{ process.env.files_changed }}
+            </details>
 
-              ${ process.env.CONTENT_CHANGED }
-              </details>
-            `;
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
+            #### :bookmark_tabs: content changed in the xml configuration files in this pr
+            <details>
+
+            ${{ process.env.content_changed }}
+            </details>
+            EOF)
+
+            echo $OUTPUT >> $GITHUB_STEP_SUMMARY
+          #   github.rest.issues.createComment({
+          #     issue_number: context.issue.number,
+          #     owner: context.repo.owner,
+          #     repo: context.repo.repo,
+          #     body: output
+          #   })

@@ -90,9 +90,7 @@ jobs:
           echo "EOF_C" >> $GITHUB_ENV
       - name: Publish diffs in a comment
         if: steps.dsl_check.outputs.run_job == 'true'
-        with:
-          github-token: ${{secrets.USER_TOKEN}}
-          run: |
+        run: |
             echo "::notice ::Missing semicolon"
             OUTPUT=$(cat << EOF
             ### This is an automatic response from the CI system for Jenkins DSL generation.

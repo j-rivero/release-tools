@@ -100,13 +100,13 @@ jobs:
             #### :open_file_folder: xml jenkins configuration files changed in this pr
             <details>
 
-            ${ process.env.files_changed }
+            ${FILES_CHANGED}
             </details>
 
             #### :bookmark_tabs: content changed in the xml configuration files in this pr
             <details>
 
-            ${ process.env.content_changed }
+            ${CONTENT_CHANGED}
             </details>
             EOF)
 

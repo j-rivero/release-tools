@@ -28,7 +28,7 @@ spec_version: 0
 collections:
   - name: 'citadel'
     libs:
-      - name: ign-cmake
+      - name: gz-cmake
         major_version: 2
         repo:
           current_branch: ign-cmake2

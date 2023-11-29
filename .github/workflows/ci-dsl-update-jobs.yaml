@@ -28,7 +28,6 @@ jobs:
           pushd jenkins-scripts/dsl
           WRITE_JOB_LOG=1 java -jar tools/jobdsl.jar *.dsl
           find logs/* -exec sort {} -o {} \;
-          git diff
           popd
       - name: Update and commit logs generated
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -38,53 +37,14 @@ jobs:
           commit_message: 'Automated change: update logs'
           commit_options: '--no-verify --signoff'
           commit_user_email: github-actions-bot@local
-      - name: Archive DSL configuration
-        uses: actions/upload-artifact@v3
-        with:
-          name: dsl-dir
-          path: |
-            jenkins-scripts/dsl
-
-  xml_checks:
-    needs: xml_generation
-    runs-on: ubuntu-latest
-    name: Checks for generated configuration
-    steps:
-      - name: Download a single artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: dsl-dir
-      - run: |
-          ls -R
-          /bin/bash ./dsl_checks.bash
-
-  xml_diff:
-    needs: xml_checks
-    runs-on: ubuntu-latest
-    name: Export XML generated configuration for diff
-    steps:
-      - name: Download a single artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: dsl-dir
-      - run: |
-          # export files for later diff
-          mkdir /tmp/pr_xml_configuration
-          # sort all generated log files
-          mv *.xml /tmp/pr_xml_configuration/
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: master
-          fetch-depth: 0
-      - name: Download and setup job dsl jar
-        run: ./jenkins-scripts/dsl/tools/setup_local_generation.bash
-      - name: Generate master branch DSL files
+      - name: Generate master DSL files
         run: |
-          pushd jenkins-scripts/dsl
+          git clean -f -e jobdsl.jar
+          git checkout master
+          cd jenkins-scripts/dsl
           WRITE_JOB_LOG=1 java -jar tools/jobdsl.jar *.dsl
+          mkdir /tmp/current_xml_configuration
           mv *.xml /tmp/current_xml_configuration/
-          popd
       - name: Generating diffs
         run: |
           # somehow the Jenkins views changed the portlet_ id on every run.

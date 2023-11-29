@@ -3,7 +3,7 @@ name: DSL logs and checks
 on:
   push:
     paths:
-      - 'dsl/**'
+      - 'jenkins-scripts/dsl/**'
 
 jobs:
   xml_generation:

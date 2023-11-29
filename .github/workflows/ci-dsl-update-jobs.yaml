@@ -22,6 +22,8 @@ jobs:
         run: ./jenkins-scripts/dsl/tools/setup_local_generation.bash
       - name: Generate XML files
         run: |
+          # Remove existing logs files. Code is adding content to them but not re-generating
+          rm logs/*
           # simulate token for brew_release
           sudo mkdir -p /var/lib/jenkins/ && sudo touch /var/lib/jenkins/remote_token
           sudo chown -R ${USER} /var/lib/jenkins

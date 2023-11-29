@@ -23,11 +23,11 @@ jobs:
       - name: Generate XML files
         run: |
           # Remove existing logs files. Code is adding content to them but not re-generating
-          rm logs/*
           # simulate token for brew_release
           sudo mkdir -p /var/lib/jenkins/ && sudo touch /var/lib/jenkins/remote_token
           sudo chown -R ${USER} /var/lib/jenkins
           pushd jenkins-scripts/dsl
+          rm -r logs/*
           WRITE_JOB_LOG=1 java -jar tools/jobdsl.jar *.dsl
           find logs/* -exec sort {} -o {} \;
           popd

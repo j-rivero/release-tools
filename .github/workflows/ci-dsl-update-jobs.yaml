@@ -36,7 +36,7 @@ jobs:
         with:
           file_pattern: jenkins-scripts/dsl/logs/
           commit_author: 'GitHub Bot in release-tools <github-actions-bot@local>'
-          commit_message: 'Automated change: update logs'
+          commit_message: 'Automated change: update logs [skip ci]'
           commit_options: '--no-verify --signoff'
           commit_user_email: github-actions-bot@local
       - name: Generate master DSL files

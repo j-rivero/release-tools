@@ -3,6 +3,7 @@ import javaposse.jobdsl.dsl.Job
 
 import org.yaml.snakeyaml.Yaml
 
+// force-test
 // shell command to inject in all bash steps
 GLOBAL_SHELL_CMD=''
 

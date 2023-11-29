@@ -1,19 +1,19 @@
 name: DSL logs and checks
 
 on:
-  push:
+  pull_request:
     paths:
       - 'jenkins-scripts/dsl/**'
 
 jobs:
   xml_generation:
     runs-on: ubuntu-latest
-    name: Diff for DSL code
+    name: Generate XML config from DSL
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
@@ -25,54 +25,64 @@ jobs:
           # simulate token for brew_release
           sudo mkdir -p /var/lib/jenkins/ && sudo touch /var/lib/jenkins/remote_token
           sudo chown -R ${USER} /var/lib/jenkins
-          cd jenkins-scripts/dsl
+          pushd jenkins-scripts/dsl
           WRITE_JOB_LOG=1 java -jar tools/jobdsl.jar *.dsl
+          find logs/* -exec sort {} -o {} \;
+          git diff
+          popd
+      - name: Update and commit logs generated
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: jenkins-scripts/dsl/logs/
+          commit_author: 'GitHub Bot in release-tools <github-actions-bot@local>'
+          commit_message: 'Automated change: update logs'
+          commit_options: '--no-verify --signoff'
+          commit_user_email: github-actions-bot@local
+      - name: Archive DSL configuration
+        uses: actions/upload-artifact@v3
+        with:
+          name: dsl-dir
+          path: |
+            jenkins-scripts/dsl
 
   xml_checks:
     needs: xml_generation
     runs-on: ubuntu-latest
-    name: Generate configuration from DSL files
+    name: Checks for generated configuration
     steps:
-      - name: Checks for generated configuration
-        run: |
-          cd jenkins-scripts/dsl
-          ./dsl_checks.bash
-
-  update_logs:
-    needs: xml_checks
-    runs-on: ubuntu-latest
-    name: Update and commit logs generated
-    steps:
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
         with:
-          file_pattern: logs/
-          commit_author: GitHub Bot in release-tools
-          commit_message: "Automated change: update logs"
-          commit_options: '--no-verify --signoff'
-          commit_user_email: github-actions-bot@local
+          name: dsl-dir
+      - run: |
+          ls -R
+          /bin/bash ./dsl_checks.bash
 
   xml_diff:
     needs: xml_checks
     runs-on: ubuntu-latest
-    name: Generate configuration from DSL files
+    name: Export XML generated configuration for diff
     steps:
-      - name: Export XML generated configuration for diff
-        run: |
-          cd jenkins-scripts/dsl
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dsl-dir
+      - run: |
           # export files for later diff
           mkdir /tmp/pr_xml_configuration
           # sort all generated log files
-          find logs/* -exec sort {} -o {} \;
           mv *.xml /tmp/pr_xml_configuration/
-      - name: Generate master DSL files
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+      - name: Generate master branch DSL files
         run: |
-          git clean -f -e jobdsl.jar
-          git checkout master
-          cd jenkins-scripts/dsl
+          pushd jenkins-scripts/dsl
           WRITE_JOB_LOG=1 java -jar tools/jobdsl.jar *.dsl
-          # sort jobs.txt
-          sort jobs.txt -o jobs.txt
           mv *.xml /tmp/current_xml_configuration/
+          popd
       - name: Generating diffs
         run: |
           # somehow the Jenkins views changed the portlet_ id on every run.

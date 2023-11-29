@@ -1,9 +1,9 @@
 branch_ci __upcoming__ gz_tools-ci-main-homebrew-amd64
 branch_ci __upcoming__ gz_tools-ci-main-jammy-amd64
 branch_ci __upcoming__ gz_tools-main-win
-branch_ci citadel ign_cmake-2-win
-branch_ci citadel ign_cmake-ci-ign-cmake2-bionic-amd64
-branch_ci citadel ign_cmake-ci-ign-cmake2-homebrew-amd64
+branch_ci citadel gz_cmake-ci-ign-cmake2-bionic-amd64
+branch_ci citadel gz_cmake-ci-ign-cmake2-homebrew-amd64
+branch_ci citadel gz_cmake-ign-cmake2-win
 branch_ci citadel ign_common-3-win
 branch_ci citadel ign_common-ci-ign-common3-bionic-amd64
 branch_ci citadel ign_common-ci-ign-common3-homebrew-amd64

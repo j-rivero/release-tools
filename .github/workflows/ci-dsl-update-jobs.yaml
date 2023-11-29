@@ -77,6 +77,8 @@ jobs:
         with:
           ref: master
           fetch-depth: 0
+      - name: Download and setup job dsl jar
+        run: ./jenkins-scripts/dsl/tools/setup_local_generation.bash
       - name: Generate master branch DSL files
         run: |
           pushd jenkins-scripts/dsl

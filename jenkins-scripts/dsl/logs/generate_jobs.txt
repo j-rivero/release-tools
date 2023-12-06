@@ -7,6 +7,9 @@ branch_ci citadel gz_cmake-ign-cmake2-win
 branch_ci citadel gz_math-ci-ign-math6-bionic-amd64
 branch_ci citadel gz_math-ci-ign-math6-homebrew-amd64
 branch_ci citadel gz_math-ign-math6-win
+branch_ci citadel gz_plugin-ci-ign-plugin1-bionic-amd64
+branch_ci citadel gz_plugin-ci-ign-plugin1-homebrew-amd64
+branch_ci citadel gz_plugin-ign-plugin1-win
 branch_ci citadel gz_tools-ci-ign-tools1-bionic-amd64
 branch_ci citadel gz_tools-ci-ign-tools1-homebrew-amd64
 branch_ci citadel gz_tools-ign-tools1-win
@@ -31,9 +34,6 @@ branch_ci citadel ign_msgs-ci-ign-msgs5-homebrew-amd64
 branch_ci citadel ign_physics-2-win
 branch_ci citadel ign_physics-ci-ign-physics2-bionic-amd64
 branch_ci citadel ign_physics-ci-ign-physics2-homebrew-amd64
-branch_ci citadel ign_plugin-1-win
-branch_ci citadel ign_plugin-ci-ign-plugin1-bionic-amd64
-branch_ci citadel ign_plugin-ci-ign-plugin1-homebrew-amd64
 branch_ci citadel ign_rendering-3-win
 branch_ci citadel ign_rendering-ci-ign-rendering3-bionic-amd64
 branch_ci citadel ign_rendering-ci-ign-rendering3-homebrew-amd64

@@ -35,6 +35,8 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           file_pattern: jenkins-scripts/dsl/logs/
+          commit_message: 'Automatic change: update logs [skip ci]'
+          commit_options: '--no-verify --signoff'
       - name: Generate master DSL files
         run: |
           git clean -f -e jobdsl.jar

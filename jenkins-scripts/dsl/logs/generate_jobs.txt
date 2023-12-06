@@ -4,6 +4,9 @@ branch_ci __upcoming__ gz_tools-main-win
 branch_ci citadel gz_cmake-ci-ign-cmake2-bionic-amd64
 branch_ci citadel gz_cmake-ci-ign-cmake2-homebrew-amd64
 branch_ci citadel gz_cmake-ign-cmake2-win
+branch_ci citadel gz_math-ci-ign-math6-bionic-amd64
+branch_ci citadel gz_math-ci-ign-math6-homebrew-amd64
+branch_ci citadel gz_math-ign-math6-win
 branch_ci citadel gz_tools-ci-ign-tools1-bionic-amd64
 branch_ci citadel gz_tools-ci-ign-tools1-homebrew-amd64
 branch_ci citadel gz_tools-ign-tools1-win
@@ -22,9 +25,6 @@ branch_ci citadel ign_gui-ci-ign-gui3-homebrew-amd64
 branch_ci citadel ign_launch-2-win
 branch_ci citadel ign_launch-ci-ign-launch2-bionic-amd64
 branch_ci citadel ign_launch-ci-ign-launch2-homebrew-amd64
-branch_ci citadel ign_math-6-win
-branch_ci citadel ign_math-ci-ign-math6-bionic-amd64
-branch_ci citadel ign_math-ci-ign-math6-homebrew-amd64
 branch_ci citadel ign_msgs-5-win
 branch_ci citadel ign_msgs-ci-ign-msgs5-bionic-amd64
 branch_ci citadel ign_msgs-ci-ign-msgs5-homebrew-amd64

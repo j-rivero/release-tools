@@ -32,7 +32,7 @@ collections:
         major_version: 2
         repo:
           current_branch: ign-cmake2
-      - name: ign-tools
+      - name: gz-tools
         major_version: 1
         repo:
           current_branch: ign-tools1

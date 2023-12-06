@@ -36,7 +36,7 @@ collections:
         major_version: 1
         repo:
           current_branch: ign-tools1
-      - name: ign-math
+      - name: gz-math
         major_version: 6
         repo:
           current_branch: ign-math6

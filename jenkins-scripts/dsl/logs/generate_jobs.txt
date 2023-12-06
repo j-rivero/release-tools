@@ -4,6 +4,9 @@ branch_ci __upcoming__ gz_tools-main-win
 branch_ci citadel gz_cmake-ci-ign-cmake2-bionic-amd64
 branch_ci citadel gz_cmake-ci-ign-cmake2-homebrew-amd64
 branch_ci citadel gz_cmake-ign-cmake2-win
+branch_ci citadel gz_tools-ci-ign-tools1-bionic-amd64
+branch_ci citadel gz_tools-ci-ign-tools1-homebrew-amd64
+branch_ci citadel gz_tools-ign-tools1-win
 branch_ci citadel ign_common-3-win
 branch_ci citadel ign_common-ci-ign-common3-bionic-amd64
 branch_ci citadel ign_common-ci-ign-common3-homebrew-amd64
@@ -37,9 +40,6 @@ branch_ci citadel ign_rendering-ci-ign-rendering3-homebrew-amd64
 branch_ci citadel ign_sensors-3-win
 branch_ci citadel ign_sensors-ci-ign-sensors3-bionic-amd64
 branch_ci citadel ign_sensors-ci-ign-sensors3-homebrew-amd64
-branch_ci citadel ign_tools-1-win
-branch_ci citadel ign_tools-ci-ign-tools1-bionic-amd64
-branch_ci citadel ign_tools-ci-ign-tools1-homebrew-amd64
 branch_ci citadel ign_transport-8-win
 branch_ci citadel ign_transport-ci-ign-transport8-bionic-amd64
 branch_ci citadel ign_transport-ci-ign-transport8-homebrew-amd64

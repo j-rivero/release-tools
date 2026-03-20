@@ -30,7 +30,7 @@ reprepro.with
   }
 
   logRotator {
-    numToKeep(15)
+    numToKeep(16)
   }
 
   steps

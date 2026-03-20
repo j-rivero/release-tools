@@ -1,6 +1,7 @@
 import _configs_.*
 import javaposse.jobdsl.dsl.Job
 
+// TEST: trigger DSL CI for PR comment e2e test (remove this line)
 def NO_TESTING = false
 def NO_BRANCHES = []
 def NO_GITHUB_PR_INTEGRATION = false
